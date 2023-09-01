@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Category: {{ category.name }}</h1>
+<p>News found: {{ news_list|length }}</p>
+<hr>
+{% for news in news_list %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ news.title }}</h5>
+        <p class="card-text">{{ news.text|truncate(100) }}</p>
+        <a href="{{ url_for('get_news', n_id=news.n_id) }}" class="btn btn-primary">Read more</a>
+    </div>
+    <div class="card-footer">
+        {% if news.created %}
+        <span class="card-link">Created at: <a class="btn btn-primary btn-sm ms-1">{{ news.created.strftime('%d.%m.%Y') }}</a></span>
+        {% endif %}
+        {% if news.category %}
+        <span class="card-link">Category: <a href="{{ url_for('get_category', c_id=news.c_id) }}" class="btn btn-primary btn-sm ms-1">{{ news.category.name }}</a></span>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<p class="card-text">No news found.</p>
+{% endfor %}
+{% endblock %}

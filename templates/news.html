@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ news.title }}</h1>
+<div class="flex mb-2">
+    {% if news.created %}
+    <span class="card-link">Created at: <a class="btn btn-primary btn-sm ms-1">{{ news.created.strftime('%d.%m.%Y') }}</a></span>
+    {% endif %}
+    {% if news.category %}
+    <span class="card-link mb-1">Category: <a href="{{ url_for('get_category', c_id=news.c_id) }}" class="btn btn-primary btn-sm ms-1">{{ news.category.name }}</a></span>
+    {% endif %}
+</div>
+<hr>
+<p>{{ news.text }}</p>
+{% endblock %}
